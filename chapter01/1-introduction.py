@@ -78,18 +78,21 @@ text = "大谷翔平は岩手県水沢市出身のプロ野球選手"
 # text中の固有表現を抽出
 pprint(ner_pipeline(text))
 
-text2text_pipeline = pipeline(
-    "text2text-generation",
-    model="llm-book/t5-base-long-livedoor-news-corpus"
-)
-article = "ついに始まった３連休。テレビを見ながら過ごしている人も多いのではないだろうか？　今夜オススメなのは何と言っても、NHKスペシャル「世界を変えた男 スティーブ・ジョブズ」だ。実は知らない人も多いジョブズ氏の養子に出された生い立ちや、アップル社から一時追放されるなどの経験。そして、彼が追い求めた理想の未来とはなんだったのか、ファンならずとも気になる内容になっている。 今年、亡くなったジョブズ氏の伝記は日本でもベストセラーになっている。今後もアップル製品だけでなく、世界でのジョブズ氏の影響は大きいだろうと想像される。ジョブズ氏のことをあまり知らないという人もこの機会にぜひチェックしてみよう。 世界を変えた男　スティーブ・ジョブズ（NHKスペシャル）"
-# articleの要約を生成
-print(text2text_pipeline(article)[0]["generated_text"])
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 
-from transformers import AutoTokenizer
+# T5ベースの要約モデルをロードする（新しいtransformersではtext2text-generationパイプラインが廃止のため直接ロード）
+summarize_model_name = "llm-book/t5-base-long-livedoor-news-corpus"
+summarize_tokenizer = AutoTokenizer.from_pretrained(summarize_model_name)
+summarize_model = AutoModelForSeq2SeqLM.from_pretrained(summarize_model_name)
+article = "ついに始まった３連休。テレビを見ながら過ごしている人も多いのではないだろうか？　今夜オススメなのは何と言っても、NHKスペシャル「世界を変えた男 スティーブ・ジョブズ」だ。実は知らない人も多いジョブズ氏の養子に出された生い立ちや、アップル社から一時追放されるなどの経験。そして、彼が追い求めた理想の未来とはなんだったのか、ファンならずとも気になる内容になっている。 今年、亡くなったジョブズ氏の伝記は日本でもベストセラーになっている。今後もアップル製品だけでなく、世界でのジョブズ氏の影響は大きいだろうと想像される。ジョブズ氏のことをあまり知らないという人もこの機会にぜひチェックしてみよう。 世界を変えた男　スティーブ・ジョブズ（NHKスペシャル）"
+# articleのトークナイズ
+inputs = summarize_tokenizer(article, return_tensors="pt", truncation=True, max_length=512)
+# articleの要約を生成
+outputs = summarize_model.generate(**inputs)
+print(summarize_tokenizer.decode(outputs[0], skip_special_tokens=True))
 
 # AutoTokenizerでトークナイザをロードする
-tokenizer = AutoTokenizer.from_pretrained("abeja/gpt2-large-japanese")
+tokenizer = AutoTokenizer.from_pretrained("rinna/japanese-gpt2-small")
 # 入力文をトークンに分割する
 tokenizer.tokenize("今日は天気が良いので")
 
@@ -97,7 +100,7 @@ from transformers import AutoModelForCausalLM
 
 # 生成を行うモデルであるAutoModelForCausalLMを使ってモデルをロードする
 model = AutoModelForCausalLM.from_pretrained(
-    "abeja/gpt2-large-japanese"
+    "rinna/japanese-gpt2-small"
 )
 # トークナイザを使ってモデルへの入力を作成する
 inputs = tokenizer("今日は天気が良いので", return_tensors="pt")
