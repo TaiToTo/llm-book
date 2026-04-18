@@ -14,7 +14,7 @@ uv sync
 
 | ファイル | 内容 |
 |---|---|
-| `dai-2-kai.py` | メインランナー（全セクション実行） |
+| `download_models.py` | モデル・データ一括ダウンロード |
 | `util.py` | 共通ユーティリティ（データ読み込み・タイマー等） |
 | `section_intro.py` | §1,3,4 イントロ・NLP振り返り・効率化の概念説明 |
 | `section5_hf_inference.py` | §5 HuggingFace推論（逐次 vs バッチ） |
@@ -36,7 +36,17 @@ uv sync
 
 依存パッケージが正しくインストールされることを確認。
 
-### Step 1: 第1回の復習（`chapter-1-introduction.py`）
+### Step 1: モデル・データの一括ダウンロード
+
+```bash
+uv run python download_models.py
+```
+
+- **確認ポイント**: 全モデル（9個）と Amazon Reviews データが順にダウンロードされ、最後に「全モデル・データのダウンロード完了！」と表示される
+- 初回はダウンロードに数分〜十数分かかる。以降はキャッシュ済み
+- ネット環境のあるうちに実行しておけば、デモ時はオフラインでも動作する
+
+### Step 2: 第1回の復習（`chapter-1-introduction.py`）
 
 ```bash
 uv run python chapter-1-introduction.py
@@ -45,27 +55,7 @@ uv run python chapter-1-introduction.py
 - **確認ポイント**: 感情分析・NER・要約・埋め込み等 7 つの NLP タスクが順に実行される
 - 各タスクで【入力】→【出力】が表示され、パイプラインの基本動作を理解する
 
-### Step 2: データセットの取得確認
-
-```bash
-uv run python download_amazon_review_2023.py
-```
-
-- **確認ポイント**: Amazon Reviews 2023 (All_Beauty) の JSONL がダウンロードされる
-- 初回のみ必要。以降はキャッシュされるので再実行不要
-
-### Step 3: 全セクション通し実行
-
-```bash
-uv run python dai-2-kai.py
-```
-
-- **確認ポイント**: §1〜§9 が順に実行され、最後に「デモ終了！」と表示される
-- 初回はモデルダウンロードに数分かかる
-
-### Step 4: 個別セクションで動作確認（必要に応じて）
-
-気になるセクションだけ単独で実行して出力を確認できる。
+### Step 3: 個別セクションで動作確認
 
 ```bash
 # §5 HuggingFace推論: 逐次 vs バッチの速度比較
@@ -88,7 +78,7 @@ uv run python section8_batch_api.py
 | §7 | asyncio 並行処理が逐次より速いことを確認（シミュレーションでは約5倍） |
 | §8 | `eda_output/batch_request_example.jsonl` が生成される |
 
-### Step 5: OpenAI API を使った実行（オプション）
+### Step 4: OpenAI API を使った実行（オプション）
 
 ```bash
 export OPENAI_API_KEY="sk-..."
