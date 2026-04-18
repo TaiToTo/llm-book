@@ -1,14 +1,14 @@
-"""セクション 7: LLM API推論デモ — 逐次 vs asyncio"""
+"""LLM API推論デモ — 逐次 vs asyncio"""
 
 import asyncio
 import os
 import time
 
-from util import section, timer, load_amazon_reviews, extract_texts
+from util import part, timer, load_amazon_reviews, extract_texts
 
 
-def section_7_api_inference_demo(reviews: list[dict]):
-    section(7, "LLM API推論デモ — 逐次 vs asyncio")
+def api_inference_demo(reviews: list[dict]):
+    part(7, "LLM API推論デモ — 逐次 vs asyncio")
 
     api_key = os.environ.get("OPENAI_API_KEY")
     if not api_key:
@@ -143,4 +143,4 @@ if __name__ == "__main__":
     print("📦 Amazon Reviews 2023 (All_Beauty) を読み込み中...")
     reviews = load_amazon_reviews(n=200)
     print(f"   {len(reviews)} 件読み込み完了")
-    section_7_api_inference_demo(reviews)
+    api_inference_demo(reviews)

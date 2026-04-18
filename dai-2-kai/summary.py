@@ -1,10 +1,10 @@
-"""セクション 9: まとめ — 効率化の使い分け"""
+"""まとめ — 効率化の使い分け"""
 
-from util import section
+from util import part
 
 
-def section_9_summary():
-    section(9, "まとめ — 効率化の使い分け")
+def summary():
+    part(9, "まとめ — 効率化の使い分け")
     print("""
   ┌────────────────────────┬──────────────────┬───────────────────┐
   │ 処理                   │ ボトルネック     │ 効率化の方法      │
@@ -37,4 +37,4 @@ def section_9_summary():
 
 
 if __name__ == "__main__":
-    section_9_summary()
+    summary()

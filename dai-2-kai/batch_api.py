@@ -1,16 +1,16 @@
-"""セクション 8: バッチAPIデモ — asyncio vs バッチAPI"""
+"""バッチAPIデモ — asyncio vs バッチAPI"""
 
 import json
 from pathlib import Path
 
-from util import section, load_amazon_reviews, extract_texts
+from util import part, load_amazon_reviews, extract_texts
 
 
-def section_8_batch_api_demo(reviews: list[dict]):
-    section(8, "バッチAPIデモ — asyncio vs バッチAPI")
+def batch_api_demo(reviews: list[dict]):
+    part(8, "バッチAPIデモ — asyncio vs バッチAPI")
 
     print("""
-  ■ asyncio (セクション7) と バッチAPI の違い:
+  ■ asyncio (api_inference.py) と バッチAPI の違い:
 
     ┌──────────────┬──────────────────────────────────────┐
     │ 方式         │ 仕組み                               │
@@ -93,4 +93,4 @@ if __name__ == "__main__":
     print("📦 Amazon Reviews 2023 (All_Beauty) を読み込み中...")
     reviews = load_amazon_reviews(n=200)
     print(f"   {len(reviews)} 件読み込み完了")
-    section_8_batch_api_demo(reviews)
+    batch_api_demo(reviews)

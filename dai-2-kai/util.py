@@ -1,4 +1,4 @@
-"""共通ユーティリティ — セクション表示・タイマー・データロード"""
+"""共通ユーティリティ — パート表示・タイマー・データロード"""
 
 import json
 import time
@@ -6,9 +6,9 @@ import time
 from huggingface_hub import hf_hub_download
 
 
-def section(num: int, title: str):
+def part(num: int, title: str):
     print("\n" + "=" * 70)
-    print(f"  セクション {num}. {title}")
+    print(f"  パート {num}. {title}")
     print("=" * 70)
 
 

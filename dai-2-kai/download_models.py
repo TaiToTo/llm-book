@@ -30,9 +30,9 @@ CHAPTER1_MODELS = [
 CHAPTER1_SEQ2SEQ = "llm-book/t5-base-long-livedoor-news-corpus"  # §6 要約
 CHAPTER1_CAUSAL = "rinna/japanese-gpt2-small"                     # §7 テキスト生成
 
-# dai-2-kai セクションで使用するモデル
-SECTION5_MODEL = "nlptown/bert-base-multilingual-uncased-sentiment"  # §5 感情分析
-SECTION6_MODEL = "intfloat/multilingual-e5-large"                    # §6 埋め込み
+# dai-2-kai デモで使用するモデル
+SENTIMENT_MODEL = "nlptown/bert-base-multilingual-uncased-sentiment"  # 感情分析
+EMBEDDING_MODEL = "intfloat/multilingual-e5-large"                    # 埋め込み
 
 
 def main():
@@ -58,25 +58,25 @@ def main():
     AutoModelForCausalLM.from_pretrained(CHAPTER1_CAUSAL)
     print("  ✅ chapter-1 モデル完了")
 
-    # --- section5: 感情分析 ---
-    print(f"\n[3/4] section5 用: {SECTION5_MODEL} ...")
-    pipeline("sentiment-analysis", model=SECTION5_MODEL)
-    print("  ✅ section5 モデル完了")
+    # --- 感情分析モデル ---
+    print(f"\n[3/4] 感情分析用: {SENTIMENT_MODEL} ...")
+    pipeline("sentiment-analysis", model=SENTIMENT_MODEL)
+    print("  ✅ 感情分析モデル完了")
 
-    # --- section6: 埋め込み ---
-    print(f"\n[4/4] section6 用: {SECTION6_MODEL} ...")
-    AutoTokenizer.from_pretrained(SECTION6_MODEL)
-    AutoModel.from_pretrained(SECTION6_MODEL)
-    print("  ✅ section6 モデル完了")
+    # --- 埋め込みモデル ---
+    print(f"\n[4/4] 埋め込み用: {EMBEDDING_MODEL} ...")
+    AutoTokenizer.from_pretrained(EMBEDDING_MODEL)
+    AutoModel.from_pretrained(EMBEDDING_MODEL)
+    print("  ✅ 埋め込みモデル完了")
 
     print("\n" + "=" * 70)
     print("  全モデル・データのダウンロード完了！")
-    print("  各セクションスクリプトを個別に実行してください:")
+    print("  各デモスクリプトを個別に実行してください:")
     print("    uv run python chapter-1-introduction.py")
-    print("    uv run python section5_hf_inference.py")
-    print("    uv run python section6_embedding.py")
-    print("    uv run python section7_api_inference.py")
-    print("    uv run python section8_batch_api.py")
+    print("    uv run python hf_inference.py")
+    print("    uv run python embedding.py")
+    print("    uv run python api_inference.py")
+    print("    uv run python batch_api.py")
     print("=" * 70)
 
 

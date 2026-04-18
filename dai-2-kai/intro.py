@@ -1,10 +1,10 @@
-"""セクション 1, 3, 4: 導入・おさらい・概念整理"""
+"""導入・おさらい・概念整理"""
 
-from util import section
+from util import part
 
 
-def section_1_introduction():
-    section(1, "導入 — 今日のテーマは「効率よく回すこと」")
+def introduction():
+    part(1, "導入 — 今日のテーマは「効率よく回すこと」")
     print("""
   同じ「遅い」でも原因は違う:
     ┌──────────────────┬──────────────────┬─────────────────────┐
@@ -20,8 +20,8 @@ def section_1_introduction():
 """)
 
 
-def section_3_nlp_recap():
-    section(3, "簡単なNLPスクリプトのおさらい")
+def nlp_recap():
+    part(3, "簡単なNLPスクリプトのおさらい")
     print("""
   chapter-1-introduction.py で見た処理の流れ:
 
@@ -42,8 +42,8 @@ def section_3_nlp_recap():
 """)
 
 
-def section_4_concepts():
-    section(4, "必要最小限の概念整理")
+def concepts():
+    part(4, "必要最小限の概念整理")
     print("""
   ■ I/Oバウンド vs CPUバウンド
 
@@ -70,6 +70,6 @@ def section_4_concepts():
 
 
 if __name__ == "__main__":
-    section_1_introduction()
-    section_3_nlp_recap()
-    section_4_concepts()
+    introduction()
+    nlp_recap()
+    concepts()

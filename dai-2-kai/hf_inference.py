@@ -1,12 +1,12 @@
-"""セクション 5: HF推論デモ — 逐次 vs バッチ（感情分析）"""
+"""HF推論デモ — 逐次 vs バッチ（感情分析）"""
 
 from transformers import pipeline as hf_pipeline
 
-from util import section, timer, load_amazon_reviews, extract_texts
+from util import part, timer, load_amazon_reviews, extract_texts
 
 
-def section_5_hf_inference_demo(reviews: list[dict]):
-    section(5, "HF推論デモ — 逐次 vs バッチ（感情分析）")
+def hf_inference_demo(reviews: list[dict]):
+    part(5, "HF推論デモ — 逐次 vs バッチ（感情分析）")
 
     texts = extract_texts(reviews)
     n = len(texts)
@@ -57,4 +57,4 @@ if __name__ == "__main__":
     print("📦 Amazon Reviews 2023 (All_Beauty) を読み込み中...")
     reviews = load_amazon_reviews(n=200)
     print(f"   {len(reviews)} 件読み込み完了")
-    section_5_hf_inference_demo(reviews)
+    hf_inference_demo(reviews)

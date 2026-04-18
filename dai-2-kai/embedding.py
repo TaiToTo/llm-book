@@ -1,14 +1,14 @@
-"""セクション 6: 埋め込みデモ — 逐次 vs バッチ (multilingual-e5-large)"""
+"""埋め込みデモ — 逐次 vs バッチ (multilingual-e5-large)"""
 
 import torch
 from torch.nn.functional import cosine_similarity
 from transformers import AutoTokenizer, AutoModel
 
-from util import section, timer, load_amazon_reviews, extract_texts
+from util import part, timer, load_amazon_reviews, extract_texts
 
 
-def section_6_embedding_demo(reviews: list[dict]):
-    section(6, "埋め込みデモ — 逐次 vs バッチ (multilingual-e5-large)")
+def embedding_demo(reviews: list[dict]):
+    part(6, "埋め込みデモ — 逐次 vs バッチ (multilingual-e5-large)")
 
     texts = extract_texts(reviews)
     n = len(texts)
@@ -95,4 +95,4 @@ if __name__ == "__main__":
     print("📦 Amazon Reviews 2023 (All_Beauty) を読み込み中...")
     reviews = load_amazon_reviews(n=200)
     print(f"   {len(reviews)} 件読み込み完了")
-    section_6_embedding_demo(reviews)
+    embedding_demo(reviews)
