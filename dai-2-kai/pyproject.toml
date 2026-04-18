@@ -1,0 +1,11 @@
+[project]
+name = "dai-2-kai"
+version = "0.1.0"
+description = "第2回: Transformersライブラリの基本"
+requires-python = ">=3.10"
+dependencies = [
+    "transformers[ja,sentencepiece,torch]>=4.30.0",
+]
+
+[tool.uv]
+dev-dependencies = []

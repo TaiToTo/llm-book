@@ -1,10 +1,3 @@
-# /// script
-# requires-python = ">=3.10"
-# dependencies = [
-#   "transformers[ja,sentencepiece,torch]",
-# ]
-# ///
-
 # ===== Imports =====
 from pprint import pprint
 from transformers import (
