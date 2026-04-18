@@ -62,3 +62,6 @@ datasets/
 logs/
 tensorboard/
 wandb/
+
+dai-2-kai/eda_output/
+dai-2-kai/play_with_amazon_review_2023.py
