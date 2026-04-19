@@ -16,13 +16,13 @@ uv sync
 |---|---|
 | `download_models.py` | モデル・データ一括ダウンロード |
 | `util.py` | 共通ユーティリティ（データ読み込み・タイマー等） |
-| `intro.py` | イントロ・NLP振り返り・効率化の概念説明 |
-| `hf_inference.py` | HuggingFace推論（逐次 vs バッチ） |
-| `embedding.py` | 埋め込み（逐次 vs バッチ） |
-| `api_inference.py` | API推論（逐次 vs asyncio） |
-| `batch_api.py` | Batch API の概念と JSONL 例 |
-| `summary.py` | まとめ |
+| `intro.md` | 導入・NLP振り返り・効率化の概念説明（ドキュメント） |
 | `chapter-1-introduction.py` | 教科書 Chapter 1 に対応するデモスクリプト |
+| `hf_inference.py` | HuggingFace推論（逐次 vs バッチ vs multiprocessing） |
+| `embedding.py` | 埋め込み（バッチ + multiprocessing → ファイル保存） |
+| `visualize.py` | 保存済み埋め込みの UMAP 2D可視化 |
+| `api_inference.py` | API推論（Structured Output + 逐次 vs asyncio） |
+| `batch_api.py` | Batch API の概念と JSONL 例 |
 | `download_amazon_review_2023.py` | データセットダウンロード CLI |
 
 ## 実行ガイド（何をどの順で確認するか）
@@ -42,7 +42,7 @@ uv sync
 uv run python download_models.py
 ```
 
-- **確認ポイント**: 全モデル（9個）と Amazon Reviews データが順にダウンロードされ、最後に「全モデル・データのダウンロード完了！」と表示される
+- **確認ポイント**: 全モデルと Amazon Reviews データが順にダウンロードされ、最後に「全モデル・データのダウンロード完了！」と表示される
 - 初回はダウンロードに数分〜十数分かかる。以降はキャッシュ済み
 - ネット環境のあるうちに実行しておけば、デモ時はオフラインでも動作する
 
@@ -58,13 +58,16 @@ uv run python chapter-1-introduction.py
 ### Step 3: 各デモスクリプトで動作確認
 
 ```bash
-# HuggingFace推論: 逐次 vs バッチの速度比較
+# HuggingFace推論: 逐次 vs バッチ vs multiprocessing の速度比較
 uv run python hf_inference.py
 
-# 埋め込み: 逐次 vs バッチの速度比較 + コサイン類似度デモ
+# 埋め込み: バッチ + multiprocessing で全件埋め込み → ファイル保存
 uv run python embedding.py
 
-# API推論: 逐次 vs asyncio の速度比較（APIキー不要でもシミュレーション動作）
+# 可視化: 保存済み埋め込みを UMAP で2Dプロット
+uv run python visualize.py
+
+# API推論: Structured Output + 逐次 vs asyncio の速度比較
 uv run python api_inference.py
 
 # Batch API: 概念説明 + JSONLファイル生成
@@ -73,9 +76,10 @@ uv run python batch_api.py
 
 | スクリプト | 確認ポイント |
 |---|---|
-| `hf_inference.py` | バッチ処理が逐次処理より速いことを数値で確認（スピードアップ倍率が表示される） |
-| `embedding.py` | 埋め込みのバッチ効果 + 最も類似するレビューペアが出力される |
-| `api_inference.py` | asyncio 並行処理が逐次より速いことを確認（シミュレーションでは約5倍） |
+| `hf_inference.py` | 逐次・バッチ・multiprocessing の速度差を数値で確認 |
+| `embedding.py` | 埋め込みを `eda_output/embeddings.npz` + `metadata.json` に保存 |
+| `visualize.py` | `eda_output/umap_visualization.png` が生成され、rating でクラスタが色分けされる |
+| `api_inference.py` | Structured Output の使い方 + asyncio による高速化を確認 |
 | `batch_api.py` | `eda_output/batch_request_example.jsonl` が生成される |
 
 ### Step 4: OpenAI API を使った実行（オプション）
@@ -85,7 +89,7 @@ export OPENAI_API_KEY="sk-..."
 uv run python api_inference.py
 ```
 
-- **確認ポイント**: 実際の API を使った逐次 vs asyncio 比較。シミュレーションとの違いを体感
+- **確認ポイント**: 実際の API で Structured Output（Pydantic モデル）を使った逐次 vs asyncio 比較
 
 ## 使用モデル
 

@@ -75,6 +75,7 @@ def main():
     print("    uv run python chapter-1-introduction.py")
     print("    uv run python hf_inference.py")
     print("    uv run python embedding.py")
+    print("    uv run python visualize.py")
     print("    uv run python api_inference.py")
     print("    uv run python batch_api.py")
     print("=" * 70)
