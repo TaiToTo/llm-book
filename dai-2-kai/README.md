@@ -22,7 +22,7 @@ uv sync
 | `embedding.py` | 埋め込み（バッチ + multiprocessing → ファイル保存） |
 | `visualize.py` | 保存済み埋め込みの UMAP 2D可視化 |
 | `api_inference.py` | API推論（Structured Output + 逐次 vs asyncio） |
-| `batch_api.py` | Batch API の概念と JSONL 例 |
+| `batch_api.py` | Batch API の概念と JSONL 例 / ジョブ投入・結果取得 |
 | `download_amazon_review_2023.py` | データセットダウンロード CLI |
 
 ## 実行ガイド（何をどの順で確認するか）
@@ -87,11 +87,19 @@ uv run python batch_api.py
 `.env` ファイルに API キーを設定し、`--api` フラグ付きで実行:
 
 ```bash
-echo 'OPENAI_API_KEY=sk-...' > .env
+cp .env.example .env
+# .env を編集して OPENAI_API_KEY を設定
 uv run python api_inference.py --api
+uv run python batch_api.py submit
 ```
 
 - **確認ポイント**: 実際の API で Structured Output（Pydantic モデル）を使った逐次 vs asyncio 比較
+- **確認ポイント**: `batch_api.py submit` でバッチジョブが投入される
+- 後から結果を取得する場合:
+  ```bash
+  uv run python batch_api.py result batch_XXXX          # ステータス確認 & 結果取得
+  uv run python batch_api.py result batch_XXXX --wait   # 完了まで待機
+  ```
 
 ## 使用モデル
 
