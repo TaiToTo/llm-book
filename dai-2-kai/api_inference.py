@@ -1,5 +1,6 @@
 """LLM API推論デモ — Structured Output + 逐次 vs asyncio"""
 
+import argparse
 import asyncio
 import os
 import time
@@ -182,6 +183,19 @@ def _print_takeaway():
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="LLM API推論デモ")
+    parser.add_argument(
+        "--api",
+        action="store_true",
+        help=".env から OPENAI_API_KEY を読み込み、実際に gpt-4o-mini を呼び出す",
+    )
+    args = parser.parse_args()
+
+    if args.api:
+        from dotenv import load_dotenv
+
+        load_dotenv()
+
     print("📦 Amazon Reviews 2023 (All_Beauty) を読み込み中...")
     reviews = load_amazon_reviews(n=200)
     print(f"   {len(reviews)} 件読み込み完了")

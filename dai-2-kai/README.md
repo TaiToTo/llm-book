@@ -84,9 +84,11 @@ uv run python batch_api.py
 
 ### Step 4: OpenAI API を使った実行（オプション）
 
+`.env` ファイルに API キーを設定し、`--api` フラグ付きで実行:
+
 ```bash
-export OPENAI_API_KEY="sk-..."
-uv run python api_inference.py
+echo 'OPENAI_API_KEY=sk-...' > .env
+uv run python api_inference.py --api
 ```
 
 - **確認ポイント**: 実際の API で Structured Output（Pydantic モデル）を使った逐次 vs asyncio 比較
